@@ -20,6 +20,7 @@ import static com.android.internal.telephony.RILConstants.*;
 import static com.android.internal.util.Preconditions.checkNotNull;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.hardware.radio.V1_0.Carrier;
 import android.hardware.radio.V1_0.CarrierRestrictions;
 import android.hardware.radio.V1_0.CdmaBroadcastSmsConfigInfo;
@@ -1329,7 +1330,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                 dcResult.cid,
                 dcResult.active,
                 dcResult.type,
-                dcResult.ifname,
+                Resources.getSystem().getString(com.android.internal.R.string.config_datause_iface),
                 dcResult.addresses,
                 dcResult.dnses,
                 dcResult.gateways,
@@ -3176,6 +3177,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
                                             int p3, String data, Message result) {
         IRadio radioProxy = getRadioProxy(result);
         if (radioProxy != null) {
+            if (mRilVersion < 10) {
+                if (result != null) {
+                    AsyncResult.forMessage(result, null,
+                            CommandException.fromRilErrno(REQUEST_NOT_SUPPORTED));
+                    result.sendToTarget();
+                }
+                return;
+            }
+
             RILRequest rr = obtainRequest(RIL_REQUEST_SIM_TRANSMIT_APDU_BASIC, result,
                     mRILDefaultWorkSource);
 
@@ -3198,6 +3208,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
     public void iccOpenLogicalChannel(String aid, int p2, Message result) {
         IRadio radioProxy = getRadioProxy(result);
         if (radioProxy != null) {
+            if (mRilVersion < 10) {
+                if (result != null) {
+                    AsyncResult.forMessage(result, null,
+                            CommandException.fromRilErrno(REQUEST_NOT_SUPPORTED));
+                    result.sendToTarget();
+                }
+                return;
+            }
+
             RILRequest rr = obtainRequest(RIL_REQUEST_SIM_OPEN_CHANNEL, result,
                     mRILDefaultWorkSource);
 
@@ -3245,6 +3264,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
 
         IRadio radioProxy = getRadioProxy(result);
         if (radioProxy != null) {
+            if (mRilVersion < 10) {
+                if (result != null) {
+                    AsyncResult.forMessage(result, null,
+                            CommandException.fromRilErrno(REQUEST_NOT_SUPPORTED));
+                    result.sendToTarget();
+                }
+                return;
+            }
+
             RILRequest rr = obtainRequest(RIL_REQUEST_SIM_TRANSMIT_APDU_CHANNEL, result,
                     mRILDefaultWorkSource);
 

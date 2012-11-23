@@ -604,6 +604,9 @@ public class RadioIndication extends IRadioIndication.Stub {
 
         // Initial conditions
         mRil.setRadioPower(false, null);
+        if (mRil.needsOldRilFeature("setPrefNwTypeOnUnsolConnected")) {
+            mRil.setPreferredNetworkType(mRil.mPreferredNetworkType, null);
+        }
         mRil.setCdmaSubscriptionSource(mRil.mCdmaSubscription, null);
         mRil.setCellInfoListRate();
         // todo: this should not require a version number now. Setting it to latest RIL version for
@@ -823,6 +826,14 @@ public class RadioIndication extends IRadioIndication.Stub {
             case android.hardware.radio.V1_0.RadioState.UNAVAILABLE:
                 state = CommandsInterface.RadioState.RADIO_UNAVAILABLE;
                 break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
             case android.hardware.radio.V1_0.RadioState.ON:
                 state = CommandsInterface.RadioState.RADIO_ON;
                 break;

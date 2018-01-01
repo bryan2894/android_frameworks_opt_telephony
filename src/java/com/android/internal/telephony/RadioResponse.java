@@ -1234,7 +1234,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         throw new UnsupportedOperationException("stopKeepaliveResponse not implemented");
     }
 
-    private void responseIccCardStatus(RadioResponseInfo responseInfo, CardStatus cardStatus) {
+    protected void responseIccCardStatus(RadioResponseInfo responseInfo, CardStatus cardStatus) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
         if (rr != null) {
@@ -1298,7 +1298,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseCurrentCalls(RadioResponseInfo responseInfo,
+    protected void responseCurrentCalls(RadioResponseInfo responseInfo,
                                       ArrayList<android.hardware.radio.V1_0.Call> calls) {
         RILRequest rr = mRil.processResponse(responseInfo);
 

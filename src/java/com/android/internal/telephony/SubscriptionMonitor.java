@@ -110,14 +110,29 @@ public class SubscriptionMonitor {
         public void onSubscriptionsChanged() {
             synchronized (mLock) {
                 int newDefaultDataPhoneId = INVALID_PHONE_INDEX;
+
+                // if null, just move along..
+                if (mPhoneSubId == null) return;
+
                 for (int phoneId = 0; phoneId < mPhoneSubId.length; phoneId++) {
                     final int newSubId = mSubscriptionController.getSubIdUsingPhoneId(phoneId);
+
+                    // if null, just move along..
+                    if (mSubscriptionController == null) continue;
+
                     final int oldSubId = mPhoneSubId[phoneId];
                     if (oldSubId != newSubId) {
+                        // if null, just move along..
+                        if (mSubscriptionsChangedRegistrants == null) continue;
+
                         log("Phone[" + phoneId + "] subId changed " + oldSubId + "->" +
                                 newSubId + ", " +
                                 mSubscriptionsChangedRegistrants[phoneId].size() + " registrants");
                         mPhoneSubId[phoneId] = newSubId;
+
+                        // if null, just move along..
+                        if (mSubscriptionsChangedRegistrants[phoneId] == null) continue;
+
                         mSubscriptionsChangedRegistrants[phoneId].notifyRegistrants();
 
                         // if the default isn't set, just move along..
@@ -125,6 +140,10 @@ public class SubscriptionMonitor {
 
                         // check if this affects default data
                         if (newSubId == mDefaultDataSubId || oldSubId == mDefaultDataSubId) {
+                            // if null, just move along..
+                            if (mDefaultDataSubChangedRegistrants == null) continue;
+                            if (mDefaultDataSubChangedRegistrants[phoneId] == null) continue;
+
                             log("mDefaultDataSubId = " + mDefaultDataSubId + ", " +
                                     mDefaultDataSubChangedRegistrants[phoneId].size() +
                                     " registrants");

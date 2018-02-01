@@ -1275,7 +1275,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseInts(RadioResponseInfo responseInfo, int ...var) {
+    protected void responseInts(RadioResponseInfo responseInfo, int ...var) {
         final ArrayList<Integer> ints = new ArrayList<>();
         for (int i = 0; i < var.length; i++) {
             ints.add(var[i]);
@@ -1377,7 +1377,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseVoid(RadioResponseInfo responseInfo) {
+    protected void responseVoid(RadioResponseInfo responseInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
         if (rr != null) {
@@ -1389,7 +1389,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseString(RadioResponseInfo responseInfo, String str) {
+    protected void responseString(RadioResponseInfo responseInfo, String str) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
         if (rr != null) {
@@ -1400,7 +1400,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseStrings(RadioResponseInfo responseInfo, String ...str) {
+    protected void responseStrings(RadioResponseInfo responseInfo, String ...str) {
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < str.length; i++) {
             strings.add(str[i]);
@@ -1424,7 +1424,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseLastCallFailCauseInfo(RadioResponseInfo responseInfo,
+    protected void responseLastCallFailCauseInfo(RadioResponseInfo responseInfo,
                                                LastCallFailCauseInfo fcInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1439,7 +1439,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseSignalStrength(RadioResponseInfo responseInfo,
+    protected void responseSignalStrength(RadioResponseInfo responseInfo,
                                         android.hardware.radio.V1_0.SignalStrength sigStrength) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1464,7 +1464,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseSetupDataCall(RadioResponseInfo responseInfo,
+    protected void responseSetupDataCall(RadioResponseInfo responseInfo,
                                        SetupDataCallResult setupDataCallResult) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1477,7 +1477,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseIccIo(RadioResponseInfo responseInfo,
+    protected void responseIccIo(RadioResponseInfo responseInfo,
                                android.hardware.radio.V1_0.IccIoResult result) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1490,7 +1490,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseCallForwardInfo(RadioResponseInfo responseInfo,
+    protected void responseCallForwardInfo(RadioResponseInfo responseInfo,
                                          ArrayList<android.hardware.radio.V1_0.CallForwardInfo>
                                                  callForwardInfos) {
         RILRequest rr = mRil.processResponse(responseInfo);
@@ -1526,7 +1526,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseOperatorInfos(RadioResponseInfo responseInfo,
+    protected void responseOperatorInfos(RadioResponseInfo responseInfo,
                                        ArrayList<android.hardware.radio.V1_0.OperatorInfo>
                                                networkInfos) {
         RILRequest rr = mRil.processResponse(responseInfo);
@@ -1605,7 +1605,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseGmsBroadcastConfig(RadioResponseInfo responseInfo,
+    protected void responseGmsBroadcastConfig(RadioResponseInfo responseInfo,
                                             ArrayList<GsmBroadcastSmsConfigInfo> configs) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1623,7 +1623,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseCdmaBroadcastConfig(RadioResponseInfo responseInfo,
+    protected void responseCdmaBroadcastConfig(RadioResponseInfo responseInfo,
                                             ArrayList<CdmaBroadcastSmsConfigInfo> configs) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1671,7 +1671,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseCellInfoList(RadioResponseInfo responseInfo,
+    protected void responseCellInfoList(RadioResponseInfo responseInfo,
                                       ArrayList<android.hardware.radio.V1_0.CellInfo> cellInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1684,7 +1684,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseActivityData(RadioResponseInfo responseInfo,
+    protected void responseActivityData(RadioResponseInfo responseInfo,
                                       ActivityStatsInfo activityInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1710,7 +1710,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseHardwareConfig(
+    protected void responseHardwareConfig(
             RadioResponseInfo responseInfo,
             ArrayList<android.hardware.radio.V1_0.HardwareConfig> config) {
         RILRequest rr = mRil.processResponse(responseInfo);
@@ -1724,7 +1724,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseICC_IOBase64(RadioResponseInfo responseInfo,
+    protected void responseICC_IOBase64(RadioResponseInfo responseInfo,
                                       android.hardware.radio.V1_0.IccIoResult result) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1742,7 +1742,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseRadioCapability(RadioResponseInfo responseInfo,
+    protected void responseRadioCapability(RadioResponseInfo responseInfo,
                                          android.hardware.radio.V1_0.RadioCapability rc) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
@@ -1755,7 +1755,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseLceStatus(RadioResponseInfo responseInfo, LceStatusInfo statusInfo) {
+    protected void responseLceStatus(RadioResponseInfo responseInfo, LceStatusInfo statusInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
         if (rr != null) {
@@ -1769,7 +1769,7 @@ public class RadioResponse extends IRadioResponse.Stub {
         }
     }
 
-    private void responseLceData(RadioResponseInfo responseInfo, LceDataInfo lceInfo) {
+    protected void responseLceData(RadioResponseInfo responseInfo, LceDataInfo lceInfo) {
         RILRequest rr = mRil.processResponse(responseInfo);
 
         if (rr != null) {

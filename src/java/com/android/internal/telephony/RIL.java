@@ -333,8 +333,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
     protected TelephonyMetrics mMetrics = TelephonyMetrics.getInstance();
 
     boolean mIsMobileNetworkSupported;
-    RadioResponse mRadioResponse;
-    RadioIndication mRadioIndication;
+    protected RadioResponse mRadioResponse;
+    protected RadioIndication mRadioIndication;
     volatile IRadio mRadioProxy = null;
     OemHookResponse mOemHookResponse;
     OemHookIndication mOemHookIndication;
@@ -620,8 +620,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
                 Context.CONNECTIVITY_SERVICE);
         mIsMobileNetworkSupported = cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE);
 
-        mRadioResponse = new RadioResponse(this);
-        mRadioIndication = new RadioIndication(this);
+        mRadioResponse = createRadioResponse();
+        mRadioIndication = createRadioIndication();
         mOemHookResponse = new OemHookResponse(this);
         mOemHookIndication = new OemHookIndication(this);
         mRilHandler = new RilHandler();
@@ -647,6 +647,14 @@ public class RIL extends BaseCommands implements CommandsInterface {
         // wakelock stuff is initialized above as callbacks are received on separate binder threads)
         getRadioProxy(null);
         getOemHookProxy(null);
+    }
+
+    protected RadioResponse createRadioResponse() {
+        return new RadioResponse(this);
+    }
+
+    protected RadioIndication createRadioIndication() {
+        return new RadioIndication(this);
     }
 
     @Override public void
@@ -4301,7 +4309,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
         }
     }
 
-    RadioCapability makeStaticRadioCapability() {
+    protected RadioCapability makeStaticRadioCapability() {
         // default to UNKNOWN so we fail fast.
         int raf = RadioAccessFamily.RAF_UNKNOWN;
 
@@ -4420,7 +4428,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      *
      * @param rilVer is the version of the ril or -1 if disconnected.
      */
-    void notifyRegistrantsRilConnectionChanged(int rilVer) {
+    protected void notifyRegistrantsRilConnectionChanged(int rilVer) {
         mRilVersion = rilVer;
         if (mRilConnectedRegistrants != null) {
             mRilConnectedRegistrants.notifyRegistrants(
@@ -4872,39 +4880,39 @@ public class RIL extends BaseCommands implements CommandsInterface {
         }
     }
 
-    void riljLog(String msg) {
+    protected void riljLog(String msg) {
         Rlog.d(RILJ_LOG_TAG, msg
                 + (mPhoneId != null ? (" [SUB" + mPhoneId + "]") : ""));
     }
 
-    void riljLoge(String msg) {
+    protected void riljLoge(String msg) {
         Rlog.e(RILJ_LOG_TAG, msg
                 + (mPhoneId != null ? (" [SUB" + mPhoneId + "]") : ""));
     }
 
-    void riljLoge(String msg, Exception e) {
+    protected void riljLoge(String msg, Exception e) {
         Rlog.e(RILJ_LOG_TAG, msg
                 + (mPhoneId != null ? (" [SUB" + mPhoneId + "]") : ""), e);
     }
 
-    void riljLogv(String msg) {
+    protected void riljLogv(String msg) {
         Rlog.v(RILJ_LOG_TAG, msg
                 + (mPhoneId != null ? (" [SUB" + mPhoneId + "]") : ""));
     }
 
-    void unsljLog(int response) {
+    protected void unsljLog(int response) {
         riljLog("[UNSL]< " + responseToString(response));
     }
 
-    void unsljLogMore(int response, String more) {
+    protected void unsljLogMore(int response, String more) {
         riljLog("[UNSL]< " + responseToString(response) + " " + more);
     }
 
-    void unsljLogRet(int response, Object ret) {
+    protected void unsljLogRet(int response, Object ret) {
         riljLog("[UNSL]< " + responseToString(response) + " " + retToString(response, ret));
     }
 
-    void unsljLogvRet(int response, Object ret) {
+    protected void unsljLogvRet(int response, Object ret) {
         riljLogv("[UNSL]< " + responseToString(response) + " " + retToString(response, ret));
     }
 

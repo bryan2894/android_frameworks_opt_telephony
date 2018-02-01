@@ -816,7 +816,7 @@ public class RadioIndication extends IRadioIndication.Stub {
         throw new UnsupportedOperationException("keepaliveStatus Indications are not implemented");
     }
 
-    private CommandsInterface.RadioState getRadioStateFromInt(int stateInt) {
+    protected CommandsInterface.RadioState getRadioStateFromInt(int stateInt) {
         CommandsInterface.RadioState state;
 
         switch(stateInt) {
